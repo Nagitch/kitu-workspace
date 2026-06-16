@@ -1,0 +1,9 @@
+[submodule "kitu"]
+	path = kitu
+	url = https://github.com/Nagitch/kitu-logic-processor.git
+[submodule "tanu-markdown"]
+	path = tanu-markdown
+	url = https://github.com/Nagitch/tanu-markdown.git
+[submodule "tsq1"]
+	path = tsq1
+	url = https://github.com/Nagitch/tsq1.git
