@@ -4,7 +4,7 @@ This workspace coordinates three independently versioned repositories.
 
 ## Repositories
 
-- `kitu/`: main logic processor and integration surface.
+- `kitu-logic-processor/`: main logic processor and integration surface.
 - `tanu-markdown/`: markdown-oriented parsing and document representation layer.
 - `tsq1/`: query/runtime layer used by Kitu.
 

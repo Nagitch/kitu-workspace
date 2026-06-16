@@ -4,7 +4,7 @@ Meta-workspace for coordinated development of Kitu, tanu-markdown, and tsq1.
 
 This repository intentionally keeps implementation code in separate Git submodules:
 
-- `kitu/` -> `Nagitch/kitu-logic-processor`
+- `kitu-logic-processor/` -> `Nagitch/kitu-logic-processor`
 - `tanu-markdown/` -> `Nagitch/tanu-markdown`
 - `tsq1/` -> `Nagitch/tsq1`
 

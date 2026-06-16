@@ -2,7 +2,7 @@
 
 This repository is a meta-workspace for coordinated development of:
 
-- kitu/: main Kitu logic processor repository
+- kitu-logic-processor/: main Kitu logic processor repository
 - tanu-markdown/: markdown/parser layer
 - tsq1/: query/runtime layer
 
@@ -30,7 +30,7 @@ Each submodule is an independent Git repository.
 
 ## Repository boundaries
 
-- `kitu/` owns Kitu integration behavior and application-level logic.
+- `kitu-logic-processor/` owns Kitu integration behavior and application-level logic.
 - `tanu-markdown/` owns markdown parsing and document representation behavior.
 - `tsq1/` owns query/runtime behavior.
 
