@@ -16,17 +16,13 @@ cargo --version
 node --version
 npm --version
 
-cargo install \
-  --locked \
-  --force \
-  --root /home/vscode/.local \
-  --path "${TANU_DIR}/tmd-cli"
-
 if [[ -f "${VSCODE_DIR}/package-lock.json" ]]; then
   npm ci --prefix "${VSCODE_DIR}"
 else
   npm install --prefix "${VSCODE_DIR}" --no-package-lock
 fi
+
+bash "${SCRIPT_DIR}/prepare-tanu-markdown-vscode.sh"
 
 if node -e 'const manifest = require(process.argv[1]); process.exit(manifest.scripts?.pack ? 0 : 1)' \
   "${VSCODE_DIR}/package.json"; then
