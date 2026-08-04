@@ -28,22 +28,39 @@ tooling used by the submodules.
 
 During initial creation, the Dev Container lifecycle scripts also:
 
-- installs the `tmd` CLI into `/home/vscode/.local/bin`;
+- builds and installs the `tmd` CLI into `/home/vscode/.local/bin`;
 - installs and packages the Tanu Markdown VS Code extension; and
 - installs the generated VSIX after VS Code attaches to the container.
 
-After the container opens, verify the CLI and then open a sample document:
+After the container opens, select **Run Tanu Markdown Editor (sample)** in
+**Run and Debug** and press **F5**. The pre-launch task rebuilds the current Rust
+CLI and TypeScript extension, stages the CLI for the development extension, and
+opens the Rhai-enabled sample in a separate Extension Development Host. Use
+this route when debugging extension code.
+
+To run the extension in the already open Dev Container window instead:
+
+1. Run **Terminal: Run Task**.
+2. Select **install: Tanu Markdown editor in current window**.
+3. Run **Developer: Reload Window** when packaging and installation finish.
+4. Open `tanu-markdown/tmd-sample/sample.tmd`.
+
+The task rebuilds the CLI and extension, packages a VSIX, and force-installs it
+into the current remote window. Reloading is required before that window's
+extension host can use the new version.
+
+You can also verify the installed CLI and open the sample with the installed
+extension:
 
 ```sh
 tmd --version
-code tanu-markdown/tmd-sample/sample.tmdp
+code tanu-markdown/tmd-sample/sample.tmd
 ```
 
 If the Tanu Markdown CLI or extension source changes, refresh both by running:
 
 ```sh
-bash .devcontainer/post-create.sh
-bash .devcontainer/install-vscode-extension.sh
+bash .devcontainer/install-tanu-markdown-current-window.sh
 ```
 
 The Dev Container definitions inside individual submodules remain available

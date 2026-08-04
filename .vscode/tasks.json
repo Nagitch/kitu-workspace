@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build: Tanu Markdown editor",
+      "type": "shell",
+      "command": "bash",
+      "args": [".devcontainer/prepare-tanu-markdown-vscode.sh"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$rustc", "$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "test: Tanu Markdown editor",
+      "type": "shell",
+      "command": "npm",
+      "args": ["test", "--prefix", "tanu-markdown/tmd-vscode"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$tsc"],
+      "group": "test"
+    },
+    {
+      "label": "install: Tanu Markdown editor in current window",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        ".devcontainer/install-tanu-markdown-current-window.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$rustc", "$tsc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}
