@@ -1,10 +1,12 @@
 # kitu-workspace
 
-Meta-workspace for coordinated development of Kitu, tanu-markdown, and tsq1.
+Meta-workspace for coordinated development of the shared calculation kernel,
+Kitu, tanu-markdown, and TSQ1.
 
 This repository intentionally keeps implementation code in separate Git submodules:
 
 - `kitu-logic-processor/` -> `Nagitch/kitu-logic-processor`
+- `openformula-kernel/` -> `Nagitch/openformula-kernel`
 - `tanu-markdown/` -> `Nagitch/tanu-markdown`
 - `tsq1/` -> `Nagitch/tsq1`
 
@@ -75,10 +77,11 @@ For single-repository work, keep the scope limited to the target submodule.
 
 For cross-repository work:
 
-1. Identify the affected repositories.
-2. Make and commit changes inside each submodule independently.
-3. Update this parent repository's submodule pointers.
-4. Commit the pointer updates in `kitu-workspace`.
+1. Identify the affected repositories and public contract.
+2. Change and validate `openformula-kernel` first when calculation semantics change.
+3. Make and commit consumer adapter changes inside each submodule independently.
+4. Update this parent repository's submodule pointers.
+5. Run `./scripts/check-calculation-kernel.sh` and commit the workspace changes.
 
 ## Useful commands
 

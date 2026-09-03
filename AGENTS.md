@@ -2,6 +2,7 @@
 
 This repository is a meta-workspace for coordinated development of:
 
+- openformula-kernel/: shared typed calculation semantics
 - kitu-logic-processor/: main Kitu logic processor repository
 - tanu-markdown/: markdown/parser layer
 - tsq1/: query/runtime layer
@@ -30,6 +31,7 @@ Each submodule is an independent Git repository.
 
 ## Repository boundaries
 
+- `openformula-kernel/` owns typed scalar values, numeric/coercion/error policy, standard functions, and the extension registry.
 - `kitu-logic-processor/` owns Kitu integration behavior and application-level logic.
 - `tanu-markdown/` owns markdown parsing and document representation behavior.
 - `tsq1/` owns query/runtime behavior.
@@ -41,14 +43,14 @@ Do not move behavior across repository boundaries without explaining the design 
 For changes spanning multiple repositories:
 
 1. Identify the public API or data contract being changed.
-2. Change the lowest-level dependency first when possible.
+2. Change the lowest-level dependency first; calculation semantics begin in `openformula-kernel`.
 3. Update dependent repositories after the dependency behavior is clear.
 4. Keep commits separate per repository.
 5. Update this workspace's submodule pointers last.
 
 ## Compatibility notes
 
-- Document compatibility assumptions between Kitu, tanu-markdown, and tsq1 when behavior crosses repository boundaries.
+- Document compatibility assumptions between the kernel, Kitu, tanu-markdown, and tsq1 when behavior crosses repository boundaries.
 
 ## Validation
 
