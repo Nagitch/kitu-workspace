@@ -11,7 +11,7 @@ manifests=(
 )
 
 for manifest in "${manifests[@]}"; do
-  if ! rg -q "openformula-kernel = .*rev = \"$kernel_revision\"" "$manifest"; then
+  if ! grep -Eq "openformula-kernel = .*rev = \"$kernel_revision\"" "$manifest"; then
     printf 'kernel revision mismatch: %s must pin %s\n' "$manifest" "$kernel_revision" >&2
     exit 1
   fi
