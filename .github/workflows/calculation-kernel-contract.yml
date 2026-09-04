@@ -1,0 +1,32 @@
+name: Calculation kernel contract
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: dtolnay/rust-toolchain@1.96.0
+      - name: Verify one pinned kernel revision
+        run: ./scripts/check-calculation-kernel.sh
+      - name: Test shared kernel
+        run: cargo test --manifest-path openformula-kernel/Cargo.toml --all-features
+      - name: Check shared kernel no_std
+        run: cargo check --manifest-path openformula-kernel/Cargo.toml --no-default-features
+      - name: Test Tanu adapter
+        run: cargo test --manifest-path tanu-markdown/Cargo.toml -p tmd-formula --all-features
+      - name: Test TSQ1 adapter
+        run: cargo test --manifest-path tsq1/Cargo.toml -p tsq1 --all-features
+      - name: Check TSQ1 no_std adapter
+        run: cargo check --manifest-path tsq1/Cargo.toml -p tsq1-no-std-check
+      - name: Test Kitu adapter
+        run: cargo test --manifest-path kitu-logic-processor/Cargo.toml -p kitu-calculation

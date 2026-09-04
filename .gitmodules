@@ -7,3 +7,6 @@
 [submodule "tsq1"]
 	path = tsq1
 	url = https://github.com/Nagitch/tsq1.git
+[submodule "openformula-kernel"]
+	path = openformula-kernel
+	url = https://github.com/Nagitch/openformula-kernel.git
