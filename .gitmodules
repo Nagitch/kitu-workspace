@@ -10,3 +10,6 @@
 [submodule "openformula-kernel"]
 	path = openformula-kernel
 	url = https://github.com/Nagitch/openformula-kernel.git
+[submodule "kitu-unity-demo-game"]
+	path = kitu-unity-demo-game
+	url = https://github.com/Nagitch/kitu-unity-demo-game.git
