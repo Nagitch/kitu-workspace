@@ -4,8 +4,8 @@ Meta-workspace for coordinated development of the shared calculation kernel,
 Kitu, tanu-markdown, and TSQ1.
 
 This repository intentionally keeps implementation code in separate repositories.
-The framework components below are managed as Git submodules; the extracted
-demo is an independent sibling checkout:
+The framework components and the independent demo below are managed as Git
+submodules:
 
 - `kitu-logic-processor/` -> `Nagitch/kitu-logic-processor`
 - `kitu-unity-demo-game/` -> `Nagitch/kitu-unity-demo-game` (the application,

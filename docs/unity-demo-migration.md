@@ -57,3 +57,33 @@ remain separately versioned and are consumed through the pinned Kitu revision.
 
 The AIP/Unreal workspaces are outside this migration and retain their current
 repository and build boundaries.
+
+## Integration order
+
+The migration is proposed through four separate pull requests:
+
+1. [Kitu PR 170](https://github.com/Nagitch/kitu-logic-processor/pull/170)
+   introduces the shared Admin and external application boundary into `develop`.
+2. [Kitu PR 171](https://github.com/Nagitch/kitu-logic-processor/pull/171)
+   removes the in-tree application. After PR 170 lands, retarget PR 171 from
+   the boundary branch to `develop`, preserving its head commit, and recheck
+   CI and mergeability before merging.
+3. [Demo PR 1](https://github.com/Nagitch/kitu-unity-demo-game/pull/1)
+   integrates the standalone application into its `develop` branch.
+4. [Workspace PR 44](https://github.com/Nagitch/kitu-workspace/pull/44)
+   integrates the coordinated submodule pins into workspace `main`.
+
+Use merge commits that preserve the reviewed source commits. Squashing or
+rebasing these histories would replace identities already used by Cargo,
+compatibility CI, and submodule pins. Recheck the exact head before each merge
+and verify that the reviewed commit remains an ancestor of the merged branch.
+
+Keep the framework submodule at the demo's full pinned Kitu revision; a later
+merge commit is not an automatic replacement for that pointer. Changing the
+pin requires a coordinated manifest/lock update and renewed contract checks.
+The demo's `develop` currently contains the extraction baseline until PR 1
+lands. Creation or promotion of demo `main` follows validation and review of
+that integration; it is not implied by opening these PRs.
+
+The [demo validation record](https://github.com/Nagitch/kitu-unity-demo-game/blob/4422620ef4349a1abd79d6e194a5e9c94ce8a8ef/docs/migration/validation.md)
+distinguishes completed checks, historical evidence, and remaining gates.

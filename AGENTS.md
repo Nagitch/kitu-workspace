@@ -9,10 +9,8 @@ This repository is a meta-workspace for coordinated development of:
 - tanu-markdown/: markdown/parser layer
 - tsq1/: query/runtime layer
 
-Each managed child directory is a Git submodule and should be treated as an
-independent repository. The extracted `kitu-unity-demo-game/` repository is a
-separate sibling checkout until it is intentionally added to workspace
-submodule management.
+Each managed child directory, including `kitu-unity-demo-game/`, is a Git
+submodule and should be treated as an independent repository.
 
 ## Scope discipline
 
@@ -37,7 +35,9 @@ Each submodule is an independent Git repository.
 ## Repository boundaries
 
 - `openformula-kernel/` owns typed scalar values, numeric/coercion/error policy, standard functions, and the extension registry.
-- `kitu-logic-processor/` owns Kitu integration behavior and application-level logic.
+- `kitu-logic-processor/` owns reusable Kitu integration, runtime contracts,
+  generic tools, and the common Admin package. Game rules, content, and
+  application-specific UI belong to their application repository.
 - `kitu-unity-demo-game/` owns the Endless Arena application, Unity presentation
   client, application Admin, Arena fixtures, and application build/evidence
   tooling. The reusable frontend package `@kitu/admin` remains in the Kitu
@@ -66,7 +66,8 @@ For changes spanning multiple repositories:
 - The Arena `baseline.json` and frozen fixture bytes remain byte-for-byte
   unchanged during extraction. The demo verifier owns a separate path map for
   relocated Unity source files; it must not rewrite baseline hashes.
-- The demo setup uses a local `--kitu-path` for joint development. Shared
+- Normal demo setup consumes the pinned Kitu revision. Joint development uses
+  an explicit local `--kitu-path` and an isolated effective demo copy. Shared
   framework packages are consumed from the framework repository and are not
   published as npm or crates.io packages for this migration.
 - Unreal/AIP work is outside this migration and remains unchanged.
