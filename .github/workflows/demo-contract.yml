@@ -1,0 +1,33 @@
+name: Unity demo contract
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          lfs: true
+
+      - name: Restore tracked LFS files
+        run: |
+          git lfs install --local
+          git lfs checkout
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check the selected demo dependency revision
+        run: python3 scripts/check-demo-contract.py
+
+      - name: Check the extracted reference fixtures
+        run: python3 kitu-unity-demo-game/tools/verify-arena-reference.py

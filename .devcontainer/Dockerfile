@@ -9,6 +9,7 @@ RUN apt-get update \
         clang \
         fzf \
         git \
+        git-lfs \
         libsqlite3-dev \
         libssl-dev \
         lld \

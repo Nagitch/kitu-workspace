@@ -47,6 +47,106 @@
         "panel": "dedicated",
         "clear": true
       }
+    },
+    {
+      "label": "setup: Kitu Unity demo",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "tools/setup.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/kitu-unity-demo-game"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "setup: demo against local Kitu (isolated copy)",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "tools/setup.py",
+        "--kitu-path",
+        "${workspaceFolder}/kitu-logic-processor"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/kitu-unity-demo-game"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "run: demo-game admin host",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "tools/run.py",
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "kitu-demo-game",
+        "--bin",
+        "kitu-demo-game-admin-host"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/kitu-unity-demo-game"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      }
+    },
+    {
+      "label": "run: demo Admin",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "tools/run.py",
+        "pnpm",
+        "--dir",
+        "admin",
+        "dev"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/kitu-unity-demo-game"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      }
+    },
+    {
+      "label": "verify: demo Arena reference",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "tools/verify-arena-reference.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/kitu-unity-demo-game"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
     }
   ]
 }

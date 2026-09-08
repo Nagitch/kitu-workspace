@@ -4,10 +4,13 @@ This repository is a meta-workspace for coordinated development of:
 
 - openformula-kernel/: shared typed calculation semantics
 - kitu-logic-processor/: main Kitu logic processor repository
+- kitu-unity-demo-game/: independent application, Unity client, application
+  Admin, Arena scenarios, and application verification tooling
 - tanu-markdown/: markdown/parser layer
 - tsq1/: query/runtime layer
 
-Each child directory is a Git submodule and should be treated as an independent repository.
+Each managed child directory, including `kitu-unity-demo-game/`, is a Git
+submodule and should be treated as an independent repository.
 
 ## Scope discipline
 
@@ -32,7 +35,13 @@ Each submodule is an independent Git repository.
 ## Repository boundaries
 
 - `openformula-kernel/` owns typed scalar values, numeric/coercion/error policy, standard functions, and the extension registry.
-- `kitu-logic-processor/` owns Kitu integration behavior and application-level logic.
+- `kitu-logic-processor/` owns reusable Kitu integration, runtime contracts,
+  generic tools, and the common Admin package. Game rules, content, and
+  application-specific UI belong to their application repository.
+- `kitu-unity-demo-game/` owns the Endless Arena application, Unity presentation
+  client, application Admin, Arena fixtures, and application build/evidence
+  tooling. The reusable frontend package `@kitu/admin` remains in the Kitu
+  framework and is consumed by the application Admin.
 - `tanu-markdown/` owns markdown parsing and document representation behavior.
 - `tsq1/` owns query/runtime behavior.
 
@@ -51,6 +60,17 @@ For changes spanning multiple repositories:
 ## Compatibility notes
 
 - Document compatibility assumptions between the kernel, Kitu, tanu-markdown, and tsq1 when behavior crosses repository boundaries.
+- The demo's `[workspace.dependencies]` Kitu git entries must all use the same
+  `rev`, and that revision must equal the checked-out Kitu framework HEAD. Use
+  `scripts/check-demo-contract.py` to check the parsed TOML contract.
+- The Arena `baseline.json` and frozen fixture bytes remain byte-for-byte
+  unchanged during extraction. The demo verifier owns a separate path map for
+  relocated Unity source files; it must not rewrite baseline hashes.
+- Normal demo setup consumes the pinned Kitu revision. Joint development uses
+  an explicit local `--kitu-path` and an isolated effective demo copy. Shared
+  framework packages are consumed from the framework repository and are not
+  published as npm or crates.io packages for this migration.
+- Unreal/AIP work is outside this migration and remains unchanged.
 
 ## Validation
 

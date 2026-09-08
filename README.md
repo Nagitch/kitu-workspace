@@ -3,9 +3,14 @@
 Meta-workspace for coordinated development of the shared calculation kernel,
 Kitu, tanu-markdown, and TSQ1.
 
-This repository intentionally keeps implementation code in separate Git submodules:
+This repository intentionally keeps implementation code in separate repositories.
+The framework components and the independent demo below are managed as Git
+submodules:
 
 - `kitu-logic-processor/` -> `Nagitch/kitu-logic-processor`
+- `kitu-unity-demo-game/` -> `Nagitch/kitu-unity-demo-game` (the application,
+  Unity client, and application Admin; added as an independent sibling after
+  the migration)
 - `openformula-kernel/` -> `Nagitch/openformula-kernel`
 - `tanu-markdown/` -> `Nagitch/tanu-markdown`
 - `tsq1/` -> `Nagitch/tsq1`
@@ -69,6 +74,39 @@ The Dev Container definitions inside individual submodules remain available
 for work scoped to only that repository. Use the root definition when working
 across repositories or when opening the complete meta-workspace.
 
+## Unity demo integration
+
+`kitu-unity-demo-game/` owns the Endless Arena application, its Unity
+presentation client, the application Admin, Arena scenarios, and the
+application build and verification tools. `kitu-logic-processor/` remains the
+framework: its generic Rust crates, CLI, replay runner, WebTransport gateway,
+generic contracts, and runtime-boundary smoke fixtures stay reusable by other
+applications.
+
+From a checkout containing both repositories, prepare the pinned demo:
+
+```sh
+cd kitu-unity-demo-game
+python3 tools/setup.py
+python3 tools/run.py cargo run --locked -p kitu-demo-game --bin kitu-demo-game-admin-host
+```
+
+The normal setup uses the checked-in Kitu revision and the original demo tree,
+so Tanu content edits apply through the existing next-run workflow. The Dev
+Container performs this setup. Outside the container, run the VS Code setup
+task before the server/Admin tasks; these use the current selected setup.
+
+For framework compatibility work, explicitly run
+`python3 tools/setup.py --kitu-path ../kitu-logic-processor` or the matching
+VS Code setup task. This captures the demo in an isolated copy while using the
+local Kitu source. Run commands through `python3 tools/run.py`; repeat setup
+after editing the original demo or shared Admin package. Setup without the
+flag returns to the pinned configuration.
+
+Setup prepares dependencies without starting services or Unity. The migration
+contract and required verification are documented in
+[`docs/unity-demo-migration.md`](docs/unity-demo-migration.md).
+
 ## Workflow
 
 Use this workspace when a change spans multiple repositories or when Codex needs to reason about their integration.
@@ -82,6 +120,12 @@ For cross-repository work:
 3. Make and commit consumer adapter changes inside each submodule independently.
 4. Update this parent repository's submodule pointers.
 5. Run `./scripts/check-calculation-kernel.sh` and commit the workspace changes.
+
+The demo dependency contract is checked separately with
+`python3 scripts/check-demo-contract.py`. It compares the parsed Kitu git
+dependency revisions in the demo workspace manifest with the checked-out
+`kitu-logic-processor` commit; it does not rewrite the Arena reference
+baseline or its hashes.
 
 ## Useful commands
 
